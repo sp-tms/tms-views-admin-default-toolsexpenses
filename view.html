@@ -1,0 +1,34 @@
+{% if uom['id'] is defined %}
+    {% set uomId = uom['id'] %}
+    {% set title = 'Unit of measurement (' ~ uom['name'] ~ ')' %}
+{% else %}
+    {% set uomId = '' %}
+    {% set title = 'New Unit of measurement' %}
+{% endif %}
+{{adminltetags.useTag('content',
+    [
+        'component'                     : component,
+        'componentName'                 : componentName,
+        'componentId'                   : componentId,
+        'parentComponentId'             : parent,
+        'sectionId'                     : 'main',
+        'contentType'                   : 'sectionWithForm',
+        'cardHeader'                    : true,
+        'cardFooter'                    : true,
+        'cardType'                      : 'primary',
+        'cardIcon'                      : 'building',
+        'cardTitle'                     : title,
+        'cardAdditionalClass'           : 'rounded-0',
+        'cardBodyInclude'               : 'uom/form',
+        'formButtons'                   :
+        [
+            'updateButtonId'                : uomId,
+            'addActionUrl'                  : 'tools/uom/add',
+            'addSuccessRedirectUrl'         : 'tools/uom',
+            'updateActionUrl'               : 'tools/uom/update',
+            'updateSuccessRedirectUrl'      : 'tools/uom',
+            'cancelActionUrl'               : 'tools/uom',
+            'closeActionUrl'                : 'tools/uom'
+        ]
+    ]
+)}}
