@@ -1,18 +1,20 @@
-{% if uom['id'] is defined %}
-    {% set uomId = uom['id'] %}
-    {% set uomName = uom['name'] %}
-    {% set uomArchived = uom['archived'] %}
-    {% set uomDescription = uom['description'] %}
+{% if expense['id'] is defined %}
+    {% set expenseId = expense['id'] %}
+    {% set expenseName = expense['name'] %}
+    {% set expenseType = expense['type'] %}
+    {% set expenseArchived = expense['archived'] %}
+    {% set expenseDescription = expense['description'] %}
 {% else %}
-    {% set uomId = '' %}
-    {% set uomName = '' %}
-    {% set uomArchived = '' %}
-    {% set uomDescription = '' %}
+    {% set expenseId = '' %}
+    {% set expenseName = '' %}
+    {% set expenseType = '' %}
+    {% set expenseArchived = '' %}
+    {% set expenseDescription = '' %}
 {% endif %}
-{% if uomArchived == '1' %}
-    {% set uomArchivedChecked = true %}
+{% if expenseArchived == '1' %}
+    {% set expenseArchivedChecked = true %}
 {% else %}
-    {% set uomArchivedChecked = false %}
+    {% set expenseArchivedChecked = false %}
 {% endif %}
 <form data-validateon="section" id="{{componentId}}-{{sectionId}}-form">
     <fieldset id="{{componentId}}-{{sectionId}}-fieldset">
@@ -28,14 +30,14 @@
                         'fieldLabel'                            : 'ID',
                         'fieldType'                             : 'input',
                         'fieldHelp'                             : true,
-                        'fieldHelpTooltipContent'               : 'Units of measurement ID',
+                        'fieldHelpTooltipContent'               : 'Expense ID',
                         'fieldRequired'                         : true,
                         'fieldBazScan'                          : true,
                         'fieldBazPostOnCreate'                  : false,
                         'fieldBazPostOnUpdate'                  : true,
                         'fieldHidden'                           : true,
                         'fieldDisabled'                         : true,
-                        'fieldValue'                            : uomId
+                        'fieldValue'                            : expenseId
                     ]
                 )}}
             </div>
@@ -49,17 +51,42 @@
                         'componentId'                           : componentId,
                         'sectionId'                             : sectionId,
                         'fieldId'                               : 'name',
-                        'fieldLabel'                            : 'Units of measurement Name',
+                        'fieldLabel'                            : 'Expense Name',
                         'fieldType'                             : 'input',
                         'fieldHelp'                             : true,
-                        'fieldHelpTooltipContent'               : 'Units of measurement Name Example: Litres',
+                        'fieldHelpTooltipContent'               : 'Expense Name Example: Litres',
                         'fieldRequired'                         : true,
                         'fieldBazScan'                          : true,
                         'fieldBazPostOnCreate'                  : true,
                         'fieldBazPostOnUpdate'                  : true,
                         'fieldDataInputMinLength'               : 1,
                         'fieldDataInputMaxLength'               : 100,
-                        'fieldValue'                            : uomName
+                        'fieldValue'                            : expenseName
+                    ]
+                )}}
+            </div>
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                             : component,
+                        'componentName'                         : componentName,
+                        'componentId'                           : componentId,
+                        'sectionId'                             : sectionId,
+                        'fieldId'                               : 'type',
+                        'fieldLabel'                            : 'Type',
+                        'fieldType'                             : 'select2',
+                        'fieldHelp'                             : true,
+                        'fieldHelpTooltipContent'               : "Select expense type",
+                        'fieldRequired'                         : true,
+                        'fieldBazScan'                          : true,
+                        'fieldBazJstreeSearch'                  : true,
+                        'fieldBazPostOnCreate'                  : true,
+                        'fieldBazPostOnUpdate'                  : true,
+                        'fieldDataSelect2Options'               : expenseTypes,
+                        'fieldDataSelect2OptionsKey'            : 'id',
+                        'fieldDataSelect2OptionsValue'          : 'name',
+                        'fieldDataSelect2OptionsArray'          : true,
+                        'fieldDataSelect2OptionsSelected'       : expenseType
                     ]
                 )}}
             </div>
@@ -73,10 +100,10 @@
                         'fieldId'                        : 'archived',
                         'fieldLabel'                     : 'Archived?',
                         'fieldHelp'                      : true,
-                        'fieldHelpTooltipContent'        : 'Check to archive uom.',
+                        'fieldHelpTooltipContent'        : 'Check to archive expense.',
                         'fieldType'                      : 'checkbox',
                         'fieldCheckboxType'              : 'danger',
-                        'fieldCheckboxChecked'           : uomArchivedChecked,
+                        'fieldCheckboxChecked'           : expenseArchivedChecked,
                         'fieldCheckboxAdditionClass'     : 'text-sm text-uppercase',
                         'fieldBazScan'                   : true,
                         'fieldDisabled'                  : false,
@@ -100,14 +127,14 @@
                         'fieldType'                      : 'textarea',
                         'fieldDataMaxLength'             : 1024,
                         'fieldHelp'                      : true,
-                        'fieldHelpTooltipContent'        : 'Description of the unit of measurement',
+                        'fieldHelpTooltipContent'        : 'Description of the expense',
                         'fieldRequired'                  : false,
                         'fieldBazScan'                   : true,
                         'fieldBazPostOnCreate'           : true,
                         'fieldBazPostOnUpdate'           : true,
                         'fieldDataInputMaxLength'        : 2048,
                         'fieldTextareaRows'              : 2,
-                        'fieldValue'                     : uomDescription
+                        'fieldValue'                     : expenseDescription
                     ]
                 )}}
             </div>
@@ -144,14 +171,19 @@ dataCollectionSection =
     $.extend(dataCollectionSection, {
         '{{componentId}}-{{sectionId}}-id'                          : { },
         '{{componentId}}-{{sectionId}}-name'                        : { },
+        '{{componentId}}-{{sectionId}}-type'                        : {
+            placeholder: 'SELECT EXPENSE TYPE'
+        },
         '{{componentId}}-{{sectionId}}-description'                 : { },
         '{{componentId}}-{{sectionId}}-archived'                    : { },
         '{{componentId}}-{{sectionId}}-form' : {
             rules: {
                 '{{componentId}}-{{sectionId}}-name'            : 'required',
+                '{{componentId}}-{{sectionId}}-type'            : 'required'
             },
             messages: {
                 '{{componentId}}-{{sectionId}}-name'            : 'Please enter name',
+                '{{componentId}}-{{sectionId}}-type'            : 'Please select type'
             }
         }
     });

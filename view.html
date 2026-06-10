@@ -1,9 +1,9 @@
-{% if uom['id'] is defined %}
-    {% set uomId = uom['id'] %}
-    {% set title = 'Unit of measurement (' ~ uom['name'] ~ ')' %}
+{% if expense['id'] is defined %}
+    {% set expenseId = expense['id'] %}
+    {% set title = 'Expense (' ~ expense['name'] ~ ')' %}
 {% else %}
-    {% set uomId = '' %}
-    {% set title = 'New Unit of measurement' %}
+    {% set expenseId = '' %}
+    {% set title = 'New Expense' %}
 {% endif %}
 {{adminltetags.useTag('content',
     [
@@ -16,19 +16,19 @@
         'cardHeader'                    : true,
         'cardFooter'                    : true,
         'cardType'                      : 'primary',
-        'cardIcon'                      : 'building',
+        'cardIcon'                      : 'rupee-sign',
         'cardTitle'                     : title,
         'cardAdditionalClass'           : 'rounded-0',
-        'cardBodyInclude'               : 'uom/form',
+        'cardBodyInclude'               : 'expenses/form',
         'formButtons'                   :
         [
-            'updateButtonId'                : uomId,
-            'addActionUrl'                  : 'tools/uom/add',
-            'addSuccessRedirectUrl'         : 'tools/uom',
-            'updateActionUrl'               : 'tools/uom/update',
-            'updateSuccessRedirectUrl'      : 'tools/uom',
-            'cancelActionUrl'               : 'tools/uom',
-            'closeActionUrl'                : 'tools/uom'
+            'updateButtonId'                : expenseId,
+            'addActionUrl'                  : 'tools/expenses/add',
+            'addSuccessRedirectUrl'         : 'tools/expenses',
+            'updateActionUrl'               : 'tools/expenses/update',
+            'updateSuccessRedirectUrl'      : 'tools/expenses',
+            'cancelActionUrl'               : 'tools/expenses',
+            'closeActionUrl'                : 'tools/expenses'
         ]
     ]
 )}}

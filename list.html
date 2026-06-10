@@ -8,7 +8,7 @@
         'contentType'           : 'sectionWithListing',
         'cardHeader'            : true,
         'cardType'              : 'primary',
-        'cardIcon'              : 'ruler',
+        'cardIcon'              : 'rupee-sign',
         'cardTitle'             : componentName,
         'cardAdditionalClass'   : 'rounded-0',
         'cardShowTools'         : ['maximize'],
@@ -23,14 +23,14 @@
                 'buttonType'            : 'button',
                 'buttons'               :
                     {
-                        'add-uom' : {
-                            'title'                   : 'Add new Units Of Measurement',
+                        'add-expense' : {
+                            'title'                   : 'Add new expense',
                             'size'                    : 'sm',
                             'type'                    : 'primary',
                             'icon'                    : 'plus',
                             'buttonAdditionalClass'   : 'contentAjaxLink',
                             'position'                : 'right',
-                            'url'                     : links.url('tools/uom/q/id/0')
+                            'url'                     : links.url('tools/expenses/q/id/0')
                         }
                     }
             },
@@ -44,6 +44,6 @@
         'dtHideIdColumn'        : true,
         'dtNoOfColumnsToShow'   : 6,
         'dtTableCompact'        : true,
-        'dtZeroRecords'         : 'No units of measurements data available. Add units of measurement by clicking the Add new units of measurement button.'
+        'dtZeroRecords'         : 'No expense data available. Add expense by clicking the Add new expense button.'
     ]
 )}}
